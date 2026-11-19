@@ -11,11 +11,11 @@ public class Encomenda {
     public Encomenda() {}
 
     /** O destinatário recusa a encomenda; é devolvida. */
-    @StateRefinement(from="true", to="true")
+    @StateRefinement(from="expedida()", to="devolvida()")
     public void recusar() {}
 
     /** Volta a preparar a encomenda devolvida. */
-    @StateRefinement(from="true", to="true")
+    @StateRefinement(from="devolvida()", to="criada()")
     public void repor() {}
 
     /** Expede a encomenda. */
@@ -23,10 +23,10 @@ public class Encomenda {
     public void expedir() {}
 
     /** Arquiva a encomenda (definitivo). */
-    @StateRefinement(from="true", to="true")
+    @StateRefinement(from="entregue() || devolvida()", to="arquivada()")
     public void arquivar() {}
 
     /** Entrega a encomenda ao destinatário. */
-    @StateRefinement(from="true", to="true")
+    @StateRefinement(from="expedida()", to="entregue()")
     public void entregar() {}
 }
